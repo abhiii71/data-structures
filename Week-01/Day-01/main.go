@@ -7,6 +7,19 @@ func main() {
 	fmt.Println("Now questions:")
 	ques()
 
+	// Accessing Element
+	ary := []int{10, 20, 30, 40, 50}
+	fmt.Println(getElement(ary, 2))
+
+	// Insertion
+	fmt.Println(insertElement(ary, 2, 71))
+
+	// deletion
+	fmt.Println(deleteElement(ary, 2))
+
+	// traversal
+	printElemets(ary)
+
 }
 
 func arr() {
@@ -39,6 +52,29 @@ func ques() {
 	ar := []int{1, 2, 3, 4, 5, 6}
 	ar = append(ar[:1], append(ar[2:])...)
 	fmt.Println("ar: ", ar)
-	// accessing last element
-	fmt.Println(arr[5])
+}
+
+// Accessing Elements
+func getElement(arr []int, index int) int {
+	if index < 0 || index >= len(arr) {
+		return -1
+	}
+	return arr[index]
+}
+
+// Insertion
+func insertElement(arr []int, index int, element int) []int {
+	return append(arr[:index], append([]int{element}, arr[index:]...)...)
+}
+
+// deletion
+func deleteElement(arr []int, index int) []int {
+	return append(arr[:index], arr[index+1:]...)
+}
+
+// Array Traversal
+func printElemets(arr []int) {
+	for _, element := range arr {
+		fmt.Println(element)
+	}
 }
