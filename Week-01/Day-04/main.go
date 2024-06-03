@@ -25,6 +25,15 @@ func main() {
 	} else {
 		fmt.Println("Linear Search: ;) Element not found in Array.")
 	}
+
+	arr4 := []int{2, 5, 8, 12, 16, 23, 38, 56, 72, 91}
+	key := 12
+	rs := bSearch(arr4, key)
+	if rs != -1 {
+		fmt.Println("Binary Search: Key Found: ", key)
+	} else {
+		fmt.Println("Key Not Found.")
+	}
 }
 
 // Bubble Sort
@@ -71,6 +80,22 @@ func lSearch(arr []int, target int) int {
 	for key, value := range arr {
 		if value == target {
 			return key
+		}
+	}
+	return -1
+}
+
+func bSearch(arr []int, key int) int {
+	l, r := 0, len(arr)-1
+	for l <= r {
+		m := l + (r-l)/2
+		if arr[m] == key {
+			return m
+		}
+		if arr[m] < key {
+			l = m + 1
+		} else {
+			r = m - 1
 		}
 	}
 	return -1
