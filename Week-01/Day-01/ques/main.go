@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	// array initialization:
@@ -9,27 +11,35 @@ func main() {
 
 	fmt.Println("Array: ", arr)
 
+	// Array Length:
+	fmt.Println("Length of the Array: ", lenArr(arr))
+
 	// Traversing array:
 	traverse(arr)
 
 	// Inserting an Element:
 	index := 2
 	element := 22
-	fmt.Printf("Inserting %d in the index %d : \n", element, index)
+	fmt.Printf("Inserting %d in the index %d : ", element, index)
 	fmt.Println(insArr(arr, index, element))
 
 	// Delete Element:
 	idx := 0
-	fmt.Printf("Deleting element in the index %d : \n", idx)
+	fmt.Printf("Deleting element in the index %d : ", idx)
 
 	DeleteElement := delArr(arr, idx)
 	fmt.Println(DeleteElement)
 
+	// Update Element:
+
+	indx := 1
+	new := 10
+	fmt.Print("Updated array: ")
+	fmt.Println(updateArr(arr, indx, new))
+
 	// Access Element:
 	key := 71
 	result := AccessElement(arr, key)
-
-	fmt.Println(arr)
 
 	if result != -1 {
 		fmt.Printf("%d is  found in the Array\n", key)
@@ -37,10 +47,8 @@ func main() {
 		fmt.Println("Key not found in the Array :)")
 	}
 
-	fmt.Println(arr)
-
 	// MAX
-	fmt.Println("Maximum element in the Array: ")
+	fmt.Print("Maximum element in the Array: ")
 	fmt.Println(max(arr))
 
 	// MIN
@@ -57,12 +65,42 @@ func main() {
 	fmt.Println(avg(arr))
 
 	// Reverse Array
-	fmt.Print("Original Array: ", arr)
+	fmt.Print("Original Array: ", arr, "\n")
 	reverseArray := reverse(arr)
 	fmt.Println("Reverse Array: ", reverseArray)
+
+	// Copy Array
+	src := []int{1, 2, 3, 4, 5, 6}
+	des := make([]int, lenArr(src))
+	copyArr(src, des)
+	fmt.Println("source Array: ", src)
+	fmt.Println("Destinition Array: ", des)
+
+	// Even Numbers:
+	fmt.Println("Even Elements in the Array: ")
+	printEven(arr)
+
+	// Odd Numbers:
+	fmt.Println("Odd Elements in the Array: ")
+	printOdd(arr)
+
+	// Array Multiplication:
+	array := []int{3, 6, 9}
+	fmt.Print("Multiply each element of an array by 2: ")
+	MultiplyArr(array)
+	fmt.Println(array)
 }
 
 // Array Basics
+
+// Array Length:
+func lenArr(arr []int) int {
+	count := 0
+	for range arr {
+		count++
+	}
+	return count
+}
 
 // Traversing array
 func traverse(arr []int) {
@@ -81,6 +119,16 @@ func insArr(arr []int, index, element int) []int {
 // Delete Element:
 func delArr(arr []int, index int) []int {
 	return append(arr[:index], arr[index+1:]...)
+}
+
+// Update Element:
+func updateArr(arr []int, indx, new int) []int {
+	for index := range arr {
+		if index == indx {
+			arr[index] = new
+		}
+	}
+	return arr
 }
 
 // Access Element:
@@ -116,7 +164,7 @@ func min(arr []int) int {
 	return min
 }
 
-// Sum of Elements:
+// Sum Elements: Sum all elements in an array.
 func sum(arr []int) int {
 	sum := 0
 	for _, element := range arr {
@@ -136,6 +184,7 @@ func avg(arr []int) int {
 }
 
 // Reverse Array:
+/*
 func reverse(arr []int) []int {
 	left := 0
 	right := len(arr) - 1
@@ -148,5 +197,53 @@ func reverse(arr []int) []int {
 	}
 	return arr
 }
+*/
 
+// Reverse Array:
+func reverse(arr []int) []int {
+	left := 0
+	right := len(arr) - 1
+	for left < right {
+		arr[left], arr[right] = arr[right], arr[left]
+		left++
+		right--
+	}
+	return arr
+}
 
+// Copy Array: Copy all elements of one array to another
+func copyArr(src []int, des []int) {
+	if lenArr(src) != lenArr(des) {
+		fmt.Println("Length of Source Array doesn't match with Destination Array.")
+		return
+	}
+
+	for index, element := range src {
+		des[index] = element
+	}
+}
+
+// Even Numbers: Write a function to print all even numbers in an array
+func printEven(arr []int) {
+	for _, element := range arr {
+		if element%2 == 0 {
+			fmt.Println(element)
+		}
+	}
+}
+
+// Odd Numbers: Write a function to print all odd numbers in an array
+func printOdd(arr []int) {
+	for _, element := range arr {
+		if element%2 != 0 {
+			fmt.Println(element)
+		}
+	}
+}
+
+// Array Multiplication: Multiply each element of an array by 2
+func MultiplyArr(arr []int) {
+	for index := range arr {
+		arr[index] = arr[index] * 2
+	}
+}
