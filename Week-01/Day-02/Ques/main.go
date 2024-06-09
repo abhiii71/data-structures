@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -73,6 +74,32 @@ func main() {
 	fmt.Println("Pairs with sum equal to target: ", pairs)
 
 	// Intersection:
+	arr1 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	arr2 = []int{22, 7, 21, 69, 34, 55, 23, 7, 71, 69}
+	intersection := interSection(arr1, arr2)
+	fmt.Println("Intersection of the Array 1 and Array 2: ", intersection)
+
+	// Union:
+	arr1 = []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	arr2 = []int{22, 7, 21, 69, 34, 55, 23, 7, 71, 69}
+	union := union(arr1, arr2)
+	fmt.Println("Union of the Array 1 and Array 2: ", union)
+
+	// Max Subarray Sum:
+	k := 3
+	fmt.Println("Original Array: ", arr)
+	fmt.Println("k: ", k)
+	result, err := maxSubarray(arr, k)
+	if err != nil {
+		fmt.Println("Error: ", err)
+	} else {
+		fmt.Println("Maximum sum of subarray of size", k, "is", result)
+	}
+
+	// Cyclic Rotation:
+
+	cRotation := cyclicRotation(arr)
+	fmt.Println("Array after cyclic Rotation", cRotation)
 }
 
 // Traverse and Print: Traverse an array and print each element.
@@ -219,6 +246,84 @@ func sumPairs(arr []int, target int) [][2]int {
 }
 
 // Intersection: Find the intersection of two arrays.
-func interSection(arr []int, arr []int) []int {
+func interSection(arr1, arr2 []int) []int {
+	intersection := []int{}
+
+	arrOne := make(map[int]bool)
+
+	// Add elements of the first array to the map
+	for _, element := range arr1 {
+		arrOne[element] = true
+	}
+
+	// Check elements of the second array for interSection
+	for _, element := range arr2 {
+		if arrOne[element] {
+			intersection = append(intersection, element)
+			delete(arrOne, element)
+		}
+	}
+	return intersection
+}
+
+// Union: Find the union of two arrays.
+func union(arr1, arr2 []int) []int {
+	union := []int{}
+
+	arrOne := make(map[int]bool)
+
+	for _, element := range arr1 {
+		arrOne[element] = true
+	}
+	for _, element := range arr2 {
+		arrOne[element] = true
+	}
+
+	for key := range arrOne {
+		union = append(union, key)
+	}
+	return union
+}
+
+// Max Subarray Sum: Find the maximum sum of a subarray of size k.
+func maxSubarray(arr []int, k int) (int, error) {
+	n := len(arr)
+	if n < k {
+		return 0, errors.New("array length is less than k")
+	}
+
+	// Compute the window over the key
+	currentSum := 0
+	for i := 0; i < k; i++ {
+		currentSum += arr[i]
+	}
+
+	maxSum := currentSum
+
+	// Slide the window over the array
+	for i := k; i < n; i++ {
+		currentSum = currentSum - arr[i-k] + arr[i]
+		if currentSum > maxSum {
+			maxSum = currentSum
+		}
+	}
+	return maxSum, nil
+}
+
+// Cyclic Rotation: Rotate an array cyclically by one.
+func cyclicRotation(arr []int) []int {
+	n := len(arr)
+	if n == 0 {
+		return arr
+	}
+
+	lastElement := arr[n-1]
+
+	for i := n - 1; i > 0; i-- {
+		arr[i] = arr[i-1]
+	}
+
+	arr[0] = lastElement
+
 	return arr
 }
