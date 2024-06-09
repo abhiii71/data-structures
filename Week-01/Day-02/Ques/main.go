@@ -97,7 +97,7 @@ func main() {
 	}
 
 	// Cyclic Rotation:
-
+	fmt.Println("Original Array: ", arr)
 	cRotation := cyclicRotation(arr)
 	fmt.Println("Array after cyclic Rotation", cRotation)
 }
