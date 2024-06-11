@@ -18,5 +18,5 @@ At a specific position (middle).
 Deletion: Removing a node from the list.
 Traversal: Accessing each node in the list in sequence.
 
-For more over Day 1 (Click Here)[https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-01/Ques/main.go]
+For more over Day 1 [Click Here](https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-01/Ques/main.go)
 
