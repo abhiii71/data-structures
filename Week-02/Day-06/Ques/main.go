@@ -13,6 +13,9 @@ type Node struct {
 type HeaderLinkedList struct {
 	header *Node
 }
+type CircularHeaderLinkedList struct {
+	header *Node
+}
 
 func main() {
 	// Insert at Beginning:
@@ -77,14 +80,14 @@ func main() {
 	list.Partition(x)
 	fmt.Printf("List after partitioning around %d: \n", x)
 	list.PrintList()
-	/* Something wrong with this one
+
 	// Flatten a Multilevel Linked List:
 	list4 := NewHeaderLinkedList()
-	n1 := list4.InsertAtBeginning(1)
+	// 	n1 := list4.InsertAtBeginning(1)
 	n2 := list4.InsertAtBeginning(2)
-	n3 := list4.InsertAtBeginning(3)
+	// 	n3 := list4.InsertAtBeginning(3)
 	n4 := list4.InsertAtBeginning(4)
-	n5 := list4.InsertAtBeginning(5)
+	//	n5 := list4.InsertAtBeginning(5)
 
 	// Adding child lists
 	n2.child = &Node{data: 6, next: &Node{data: 7}}
@@ -92,27 +95,17 @@ func main() {
 	fmt.Println("Original List: ")
 	list4.PrintList()
 
-	list4.FlattenList()
+	list4.Flatten()
 	fmt.Println("Flattened List: ")
 	list4.PrintList()
-
-	*/
 
 	// Rotate List:
 
 	list.PrintList()
 	list.RotateRight(2)
 
-	// Reorder List:
-	fmt.Print("Original List: ")
-	list.PrintList()
-
-	list.Reorder()
-	fmt.Print("Reorderd List: ")
-	list.PrintList()
-
 	// Copy List with Random Pointer:
-
+	/* something wrong with this one
 	list5 := &HeaderLinkedList{}
 	node1 := list5.InsertAtBeginning(1)
 	node2 := list5.InsertAtBeginning(2)
@@ -131,18 +124,86 @@ func main() {
 
 	fmt.Println("Copied list with random pointers: ")
 	copiedList.PrintWithRandom()
+	*/
+
+	// Sort Linked List:
+
+	fmt.Print("Original list: ")
+	list.PrintList()
+
+	list.Sort()
+	fmt.Print("Sorted list: ")
+	list.PrintList()
+
+	// Reorder List:
+	fmt.Print("Original List: ")
+	list.PrintList()
+
+	list.Reorder()
+	fmt.Print("Reorderd List: ")
+	list.PrintList()
 
 	// Remove Zero Sum Subsequences:
-
 	list3 := NewHeaderLinkedList()
 	list3.InsertAtBeginning(1)
 	list3.InsertAtBeginning(2)
 	list3.InsertAtBeginning(-3)
 	list3.InsertAtBeginning(3)
-	list.InsertAtBeginning(1)
+	list3.InsertAtBeginning(1)
 	list3.RemoveZeroSumSublists()
 	fmt.Println("List after removing zero-sum sublists: ")
 	list3.PrintList()
+
+	// Split Linked List in Parts:
+
+	fmt.Print("Original list: ")
+	list.PrintList()
+
+	k := 3
+	parts := list.SplitIntoParts(k)
+
+	fmt.Printf("List split into %d parts: \n", k)
+	for i, part := range parts {
+		fmt.Printf("Part %d: ", i+1)
+		part.PrintList()
+	}
+
+	// Odd Even Linked List:
+	fmt.Print("Original  list: ")
+	list.PrintList()
+	list.GroupOddEven()
+	fmt.Print("list after grouping odd and even nodes: ")
+	list.PrintList()
+
+	// Insert into Sorted Circular Linked List:
+	list5 := &CircularHeaderLinkedList{}
+	list5.InsertSorted(3)
+	list5.InsertSorted(1)
+	list5.InsertSorted(4)
+	list5.InsertSorted(2)
+	list5.InsertSorted(5)
+
+	fmt.Print("Sorted Circular Linked List: ")
+	list5.Print()
+
+	// Reverse Nodes in k-Group:
+
+	fmt.Print("Original List: ")
+	list.PrintList()
+	k = 3
+	list.ReverseKGroup(k)
+
+	fmt.Printf("List after reversing every %d nodes: \n", k)
+	list.PrintList()
+
+	// Swap Nodes in Pairs:
+	fmt.Print("Original List: ")
+	list.PrintList()
+
+	list.SwapPairs()
+
+	fmt.Print("List after swapping pairs: ")
+	list.PrintList()
 }
 
 func NewHeaderLinkedList() *HeaderLinkedList {
@@ -185,7 +246,7 @@ func (list *HeaderLinkedList) RemoveNthFromEnd(n int) {
 	second := dummy
 
 	// Move first pointer n steps ahead
-	for i := 0; i < n; i++ {
+	for i := 0; i <= n; i++ {
 		if first.next == nil {
 			return // n is greater than the length of the list
 		}
@@ -193,7 +254,7 @@ func (list *HeaderLinkedList) RemoveNthFromEnd(n int) {
 	}
 
 	// Move both pointers until first reaches the end
-	for first.next != nil {
+	for first != nil {
 		first = first.next
 		second = second.next
 	}
@@ -349,7 +410,7 @@ If a node has a child, recursively flatten the child list.
 Insert the flattened child list between the current node and the next node.
 Continue the process until the entire list is flattened.
 */
-/*
+
 func (list *HeaderLinkedList) Flatten() {
 	if list.header == nil {
 		return
@@ -366,16 +427,15 @@ func (list *HeaderLinkedList) Flatten() {
 			// Connect the tail to the next node
 			childTail.next = current.next
 
-// Connect the current node to the head of the child list
+			// Connect the current node to the head of the child list
 			current.next = current.child
 
 			// Set the child pointer to nil
-			current = current.next
+			current.child = nil
 		}
 		current = current.next
 	}
 }
-*/
 
 // Write a function to rotate a header linked list to the right by k places.
 /*
@@ -405,7 +465,7 @@ func (list *HeaderLinkedList) RotateRight(k int) {
 
 	// Step 3: Find the new tail and new head
 	slow, fast := list.header.next, list.header.next
-	for i := 0; i < k; i++ {
+	for i := 0; i < length-k; i++ {
 		fast = fast.next
 	}
 
@@ -473,6 +533,64 @@ func (list *HeaderLinkedList) Copy() *HeaderLinkedList {
 		current = current.next
 	}
 	return newList
+}
+
+// Write a function to sort a header linked list using merge sort.
+func (list *HeaderLinkedList) Sort() {
+	if list.header == nil || list.header.next == nil {
+		return
+	}
+	list.header.next = mergeSort(list.header.next)
+}
+
+func mergeSort(head *Node) *Node {
+	if head == nil || head.next == nil {
+		return head
+	}
+
+	middle := getMiddle(head)
+	nextOfMiddle := middle.next
+	middle.next = nil
+
+	// Recursively sort the two halves
+	left := mergeSort(head)
+	right := mergeSort(nextOfMiddle)
+
+	// Merge the sorted halves
+	sortedList := sortedMerge(left, right)
+	return sortedList
+}
+
+func getMiddle(head *Node) *Node {
+	if head == nil {
+		return head
+	}
+
+	slow, fast := head, head
+	for fast.next != nil && fast.next.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+	}
+	return slow
+}
+
+func sortedMerge(left, right *Node) *Node {
+	if left == nil {
+		return right
+	}
+	if right == nil {
+		return left
+	}
+
+	var result *Node
+	if left.data <= right.data {
+		result = left
+		result.next = sortedMerge(left.next, right)
+	} else {
+		result = right
+		result.next = sortedMerge(left, right.next)
+	}
+	return result
 }
 
 // Write a function to reorder a header linked list such that the nodes are rearranged in a specific pattern (e.g., L0→Ln→L1→Ln-1→L2→Ln-2→…).
@@ -562,4 +680,174 @@ func (list *HeaderLinkedList) RemoveZeroSumSublists() {
 	}
 
 	list.header.next = dummy.next
+}
+
+// Write a function to split a header linked list into k consecutive linked list parts.
+/*
+Determine the Length of the List: Traverse the list to find its length.
+Calculate the Size of Each Part: Determine the size of each part and how many parts will have an extra node if the list length is not perfectly divisible by `k`.
+Split the List: Traverse the list again to split it into `k` parts.
+*/
+func (list *HeaderLinkedList) SplitIntoParts(k int) []*HeaderLinkedList {
+	if list.header == nil {
+		return nil
+	}
+
+	// Step 1: Determine the length of the list
+	length := 0
+	current := list.header.next
+	for current != nil {
+		length++
+		current = current.next
+	}
+
+	// Step 2: Calculate the size of each part
+	partSize := length / k
+	extraNodes := length % k
+
+	// Step 3: Split the list into k parts
+	parts := make([]*HeaderLinkedList, k)
+	current = list.header.next
+	for i := 0; i < k; i++ {
+		parts[i] = &HeaderLinkedList{header: &Node{}}
+		partHead := parts[i].header
+		for j := 0; j < partSize; j++ {
+			partHead.next = current
+			partHead = partHead.next
+			if current != nil {
+				current = current.next
+			}
+		}
+		if extraNodes > 0 {
+			partHead.next = current
+			partHead = partHead.next
+			if current != nil {
+				current = current.next
+			}
+			extraNodes--
+		}
+
+		partHead.next = nil
+	}
+
+	return parts
+}
+
+// Write a function to group all odd nodes together followed by the even nodes in a header linked list.
+/*
+Traverse the linked list and separate the nodes into two lists: one for odd-indexed nodes and one for even-indexed nodes.
+Connect the end of the odd-indexed list to the beginning of the even-indexed list.
+Ensure the end of the even-indexed list points to `nil`.
+*/
+func (list *HeaderLinkedList) GroupOddEven() {
+	if list.header == nil || list.header.next == nil {
+		return
+	}
+
+	odd := list.header.next
+	even := odd.next
+	evenHead := even
+
+	for even != nil && even.next != nil {
+		odd.next = even.next
+		odd = odd.next
+		even.next = odd.next
+		even = even.next
+	}
+
+	odd.next = evenHead
+}
+
+// Write a function to insert a new node into a sorted circular header linked list.
+func (list *CircularHeaderLinkedList) Print() {
+	if list.header == nil {
+		return
+	}
+	current := list.header.next
+
+	for current != list.header {
+
+		fmt.Print(current.data, " ")
+		current = current.next
+	}
+	fmt.Println()
+}
+
+func (list *CircularHeaderLinkedList) InsertSorted(data int) {
+	newNode := &Node{data: data}
+	if list.header == nil {
+		list.header = &Node{} // Initialize header node
+		list.header.next = newNode
+		newNode.next = list.header
+		return
+	}
+
+	current := list.header
+	for current.next != list.header && current.next.data < data {
+		current = current.next
+	}
+	newNode.next = current.next
+	current.next = newNode
+}
+
+// Write a function to reverse the nodes of a header linked list k at a time and return its modified list.
+/*
+Traverse the list and reverse the first `k` nodes.
+Connect the reversed part to the next part of the list.
+Repeat the process for the remaining nodes.
+*/
+func (list *HeaderLinkedList) ReverseKGroup(k int) {
+	if list.header == nil || k <= 1 {
+		return
+	}
+	list.header.next = reverseKGroup(list.header.next, k)
+}
+
+func reverseKGroup(head *Node, k int) *Node {
+	current := head
+	count := 0
+
+	// Find the k+1 node
+	for current != nil && count < k {
+		current = current.next
+		count++
+	}
+
+	// If we have k nodes, then we reverse them
+	if count == k {
+		current = reverseKGroup(current, k) // Reverse the remaining nodes
+		for count > 0 {
+			temp := head.next
+			head.next = current
+			current = head
+			head = temp
+			count--
+		}
+		head = current
+	}
+	return head
+}
+
+// Write a function to swap every two adjacent nodes in a header linked list.
+func (list *HeaderLinkedList) SwapPairs() {
+	if list.header == nil || list.header.next == nil {
+		return
+	}
+
+	prev := list.header
+	current := list.header.next
+
+	for current != nil && current.next != nil {
+		nextPair := current.next.next
+		second := current.next
+
+		// swap the pair
+		second.next = current
+		current.next = nextPair
+		prev.next = second
+
+		// Move to the next pair
+		prev = current
+		current = nextPair
+	}
 }
