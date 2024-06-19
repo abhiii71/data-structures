@@ -77,12 +77,6 @@ func main() {
 	}
 
 	// Merging Two Sorted Lists:
-	// First sorted linked list
-	list = &LinkedList{}
-	list.InsertionAtBeginning(7)
-	list.InsertionAtBeginning(21)
-	list.InsertionAtBeginning(69)
-	list.InsertionAtBeginning(22)
 
 	// Second sorted linked list
 	list2 := &LinkedList{}
@@ -91,10 +85,21 @@ func main() {
 	list2.InsertionAtBeginning(69)
 	list2.InsertionAtBeginning(22)
 
-	// Merging the two lists
-	mergedList := MergeTwoSortedList(list, list2)
+	// list1:
+
+	list1 := &LinkedList{}
+	list1.InsertionAtBeginning(7)
+	list1.InsertionAtBeginning(21)
+	list1.InsertionAtBeginning(3)
+	list1.InsertionAtBeginning(31)
+	list1.InsertionAtBeginning(2)
+	list1.InsertionAtBeginning(9)
+
+	mergeHead := MergeSort(list1.head)
+	mergeList := &LinkedList{head: mergeHead}
 	fmt.Print("Merged List: ")
-	mergedList.PrintList()
+	mergeList.PrintList()
+	fmt.Println()
 
 	// Removing Duplicates:
 
@@ -108,7 +113,7 @@ func main() {
 
 	// Adding Two Numbers Represented by Lists:
 	// First number: 342 (represented as 2 -> 4 -> 3)
-	list1 := &LinkedList{}
+	list1 = &LinkedList{}
 	list1.InsertionAtEnd(2)
 	list1.InsertionAtEnd(4)
 	list1.InsertionAtEnd(3)
@@ -345,31 +350,63 @@ func (list *LinkedList) FindMiddle() *Node {
 }
 
 // Merging Two Sorted Lists: Write a function to merge two sorted singly linked lists into a single sorted list.
-func MergeTwoSortedList(l1, l2 *LinkedList) *LinkedList {
+// Sort the list:
+func MergeSort(head *Node) *Node {
+	if head == nil || head.next == nil {
+		return head
+	}
+	// Split the list into two halves
+	left, right := SplitList(head)
+
+	// Recursively sort each half
+	left = MergeSort(left)
+	right = MergeSort(right)
+
+	// Merge the sorted halves
+	return Merge(left, right)
+}
+
+// Split list
+func SplitList(head *Node) (*Node, *Node) {
+	var prev *Node
+	slow, fast := head, head
+
+	for fast != nil && fast.next != nil {
+		prev = slow
+		slow = slow.next
+		fast = fast.next.next
+	}
+
+	// Break the list into two halves
+	if prev != nil {
+		prev.next = nil
+	}
+	return head, slow
+}
+
+// Merge the list
+func Merge(left, right *Node) *Node {
 	dummy := &Node{}
-	tail := dummy
+	current := dummy
 
-	p1 := l1.head
-	p2 := l2.head
-
-	for p1 != nil && p2 != nil {
-		if p1.data < p2.data {
-			tail.next = p1
-			p1 = p1.next
+	for left != nil && right != nil {
+		if left.data < right.data {
+			current.next = left
+			left = left.next
 		} else {
-			tail.next = p2
-			p2 = p2.next
+			current.next = right
+			right = right.next
 		}
-		tail = tail.next
+		current = current.next
 	}
 
-	if p1 != nil {
-		tail.next = p1
-	} else if p2 != nil {
-		tail.next = p2
+	if left != nil {
+		current.next = left
+	} else {
+		current.next = right
 	}
 
-	return &LinkedList{head: dummy.next}
+	return dummy.next
 }
 
 // PrintList traverses the linked list and prints its elements
