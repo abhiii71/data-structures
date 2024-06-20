@@ -29,6 +29,7 @@ From the Middle: Traverse to the node just before the one to be deleted, adjust 
 Start from the head and follow each node’s next pointer until you reach the end (null). Print or process each node’s data.
 
 ######  For More Deep Dive 
+Visit the following URL: [Singly  Linked Lists](https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-01/)
 
 # Day 2: Advanced Singly Linked List Operations
 
@@ -65,6 +66,8 @@ Move slow one step and fast two steps in each iteration.
 When fast reaches the end, slow will be at the middle.
 
 ##### For More Deep Dive
+Visit the following URL: [Advanced Singly Linked List Operations](https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-02)
+
  
 # Day 3: Introduction to Doubly Linked Lists
 
@@ -101,6 +104,10 @@ From the Middle: Adjust the next and prev pointers of the surrounding nodes to b
 Forward Traversal: Start from the head and follow the next pointers.
 Backward Traversal: Start from the tail and follow the prev pointers.
 
+######  For More Deep Dive 
+Visit the following URL: [Doubly Linked Lists](https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-03)
+
+
 # Day 4: Circular Linked Lists
 
 ## Theory
@@ -127,6 +134,10 @@ From the Middle: Traverse to the node just before the one to be deleted, adjust 
 ###### Traversal:
 
 Start from the head and follow the next pointers until you reach the head again.
+
+######  For More Deep Dive 
+Visit the following URL: [Circular Linked Lists](https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-04)
+
 
 # Day 5: Circular Doubly Linked Lists
 
@@ -156,6 +167,10 @@ From the Middle: Adjust the next and prev pointers of the surrounding nodes to b
 Forward Traversal: Start from the head and follow the next pointers until you reach the head again.
 Backward Traversal: Start from the tail and follow the prev pointers until you reach the tail again.
 
+######  For More Deep Dive 
+Visit the following URL: [Circular Doubly Linked Lists](https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-05)
+
+
 # Day 6: Header Linked Lists and Problem-Solving
 
 ## Theory
@@ -178,3 +193,7 @@ Approach: Use a hash set to track seen elements and remove duplicates during tra
 ##### Adding Numbers Represented by Linked Lists:
 
 Approach: Traverse both lists, add corresponding digits along with carry, and handle different lengths of lists.
+
+######  For More Deep Dive 
+Visit the following URL: [Header Linked Lists and Problem-Solving](https://github.com/helloabhii/go-dsa/tree/master/Week-02/Day-06)
+
