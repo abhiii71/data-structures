@@ -92,20 +92,18 @@ func dailyTemperatures(T []int) []int {
 /*
 
 Next Greater Element I (LeetCode #496)
-You are given two arrays nums1 and nums2 without duplicates, where nums1 is a subset of nums2. For each element in nums1, you need to find the next greater number in nums2. The next greater number for an element x in nums1 is the first number to the right of x in nums2 that is greater than x. If it does not exist, return -1 for that element.
+You are given two arrays nums1 and nums2 without duplicates, where nums1 is a subset of nums2. For each element in nums1, you need to find the next greater number in nums2. 
+The next greater number for an element x in nums1 is the first number to the right of x in nums2 that is greater than x. If it does not exist, return -1 for that element.
 
 Example
 Given the arrays:
 
-css
-Copy code
 nums1 = [4, 1, 2]
 nums2 = [1, 3, 4, 2]
-The output should be:
 
-css
-Copy code
+The output should be:
 [-1, 3, -1]
+
 Explanation:
 
 For 4 in nums1, there is no greater element to the right in nums2.
@@ -113,14 +111,10 @@ For 1 in nums1, the next greater element is 3.
 For 2 in nums1, there is no greater element to the right in nums2.
 Given the arrays:
 
-css
-Copy code
 nums1 = [2, 4]
 nums2 = [1, 2, 3, 4]
 The output should be:
 
-csharp
-Copy code
 [3, -1]
 Explanation:
 
@@ -188,36 +182,24 @@ Any other name is a directory name.
 Example
 Given the path:
 
-arduino
-Copy code
 "/home/"
 The output should be:
 
-arduino
-Copy code
 "/home"
 Given the path:
-
-arduino
-Copy code
 "/../"
-The output should be:
 
-arduino
-Copy code
+The output should be:
 "/"
+
 Explanation:
 
 .. refers to the parent directory, but since the current directory is the root /, moving up one level still results in /.
 Given the path:
 
-arduino
-Copy code
 "/home//foo/"
 The output should be:
 
-arduino
-Copy code
 "/home/foo"
 Solution Explanation
 To simplify the Unix-style file path, we can use a stack to handle the directory traversal, especially when encountering .. which requires moving up to the parent directory. Here's the approach step-by-step:
