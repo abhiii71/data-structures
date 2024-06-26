@@ -22,5 +22,5 @@ The array elements are stored in contiguous memory locations, making it efficien
 ### Summary
 Arrays are a fundamental data structure used to store collections of elements.
 Understanding how to initialize, access, insert, and delete elements in arrays is crucial for efficient data manipulation in Go.
-Feel free to try out the [example code](https://github.com/helloabhii/go-dsa/blob/master/Week-01/Day-01/ques/main.go) and modify it to get a better understanding of how arrays work in Go.
+Feel free to try out the [example code](https://github.com/helloabhii/go-dsa/blob/master/Week-01/Day-01/Ques) and modify it to get a better understanding of how arrays work in Go.
 
