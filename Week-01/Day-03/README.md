@@ -9,6 +9,14 @@ A 2D array, also known as a matrix, consists of rows and columns. Each element i
 ### 3D Arrays:
 A 3D array extends the concept of a 2D array by adding another dimension. It can be thought of as a collection of 2D arrays. Each element in a 3D array is identified by its depth, row, and column index. 3D arrays are less common but can be useful for representing volumetric data or multi-dimensional structures.
 
+### Memory Layout and Indexing:
+
+Row-major Order: Elements are stored row by row. Accessing elements involves iterating through rows first.
+
+Column-major Order: Elements are stored column by column. Accessing elements involves iterating through columns first.
+
+Efficiency Considerations: Understand the impact of memory access patterns on performance, especially in large matrices.
+
 ## Resources:
-- Questions [Here](https://github.com/helloabhii/go-dsa/tree/master/Week-01/Day-03/Ques/main.go) over Day 3
+- Questions [Here](https://github.com/helloabhii/go-dsa/tree/master/Week-01/Day-03/Ques) over Day 3
 
