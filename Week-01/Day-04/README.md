@@ -1,6 +1,8 @@
 # Day 4: Advanced Sorting Techniques - Deep Dive
 
-## Understanding Merge Sort Algorithm:
+## Merge Sort
+
+### Understanding Merge Sort Algorithm:
 
 Concept: Merge Sort is a divide-and-conquer algorithm that divides the array into two halves, recursively sorts each half, and then merges the sorted halves.
 
