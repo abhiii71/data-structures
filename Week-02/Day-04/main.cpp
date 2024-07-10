@@ -19,8 +19,18 @@ public:
   void insertAtEnd(int val);
   void insertAtPosition(int data, int position);
   void deleteNode(Node* node);
+  void printList();
 };
 
+DoublyLinkedList::~DoublyLinkedList(){
+  Node* current = head;
+  Node* nextNode;
+  while (current != nullptr) {
+    nextNode = current->next;
+    delete current;
+    current = nextNode; 
+  }
+}
 
 void DoublyLinkedList::insertAtBeginning(int val){
   Node* newNode = new Node(val);
@@ -38,6 +48,7 @@ void DoublyLinkedList::insertAtEnd(int val){
   Node* newNode = new Node(val);
   if(!head){
     head = newNode;
+    return;
   }
   Node* temp = head;
   while(temp->next){
@@ -74,5 +85,31 @@ void DoublyLinkedList::deleteNode(Node* node){
   if(node->next) {
     node->next->prev = node->next;
   }
+  if (node->prev){
+    node->prev->next = node->next;
+  }
   delete node;
 }
+
+void DoublyLinkedList::printList(){
+  Node* temp = head;
+  while (temp != nullptr) {
+    cout << temp->data << " ";
+    temp = temp->next;
+  }
+  cout << endl;
+}
+
+int main(){
+
+  DoublyLinkedList list;
+
+  list.insertAtEnd(21);
+  list.insertAtBeginning(71);
+  list.insertAtPosition(2, 2);
+
+//   list.deleteNode(head);
+  list.printList();
+
+}
+
